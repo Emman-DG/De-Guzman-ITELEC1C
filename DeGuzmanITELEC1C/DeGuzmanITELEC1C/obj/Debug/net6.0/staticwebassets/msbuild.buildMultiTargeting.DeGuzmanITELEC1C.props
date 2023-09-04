@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\DeGuzmanITELEC1C.props" />
+</Project>
