@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\DeGuzman_LabAct.props" />
+</Project>
