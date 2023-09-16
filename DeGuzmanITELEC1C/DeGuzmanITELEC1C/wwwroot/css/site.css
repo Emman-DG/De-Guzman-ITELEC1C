@@ -58,3 +58,8 @@ body {
     line-height: 25px;
     letter-spacing: 1px;
 }
+
+td {
+    padding-right: 15px;
+    padding-left: 15px
+}
