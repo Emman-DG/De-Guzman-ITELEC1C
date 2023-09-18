@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Edit Student";
+}
+@model Student
+<h3>Edit Student</h3>
+
+<form asp-action="EditStudent">
+    <div class="mb-3">
+        <label asp-for="Id" class="form-label">ID</label>
+        <input asp-for="Id" class="form-control" />
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+        <label asp-for="FirstName" class="form-label">First Name</label>
+        <input asp-for="FirstName" type="text" class="form-control" />
+        </div>
+        <div class="col">
+            <label asp-for="LastName" class="form-label">Last Name</label>
+            <input asp-for="LastName" type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="GPA" class="form-label">GPA</label>
+        <input asp-for="GPA" type="text" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Course" class="form-label">Course</label>
+        <select asp-for="Course" asp-items="Html.GetEnumSelectList(typeof(Course))" class="form-control"></select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AdmissionDate" class="form-label">Admission Date</label>
+        <input asp-for="AdmissionDate" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" type="text" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

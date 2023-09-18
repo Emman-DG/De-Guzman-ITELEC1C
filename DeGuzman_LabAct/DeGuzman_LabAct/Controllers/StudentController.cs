@@ -38,5 +38,52 @@ namespace DeGuzman_LabAct.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        public IActionResult AddStudent()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddStudent(Student newStudent)
+        { 
+            StudentList.Add(newStudent);
+            return View("Index", StudentList);
+        }
+
+        public IActionResult EditStudent()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult EditStudent(int id) 
+        {
+            Student? Student = StudentList.FirstOrDefault(st => st.Id == id);
+
+            if (Student != null)
+                return View(Student);
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult EditStudent(Student studentStudent)
+        { 
+            var st = StudentList.FirstOrDefault(st => st.Id == studentStudent.Id);
+
+            if (st != null)
+            { 
+                st.Id = studentStudent.Id;
+                st.FirstName = studentStudent.FirstName;
+                st.LastName = studentStudent.LastName;
+                st.GPA = studentStudent.GPA;
+                st.Course = studentStudent.Course;
+                st.AdmissionDate = studentStudent.AdmissionDate;
+                st.Email = studentStudent.Email;
+                return View("Index", StudentList);
+            }
+            return NotFound();
+        }
     }
 }

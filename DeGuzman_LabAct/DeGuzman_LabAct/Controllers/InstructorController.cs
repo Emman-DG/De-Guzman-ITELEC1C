@@ -62,5 +62,50 @@ namespace DeGuzman_LabAct.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        public IActionResult AddInstructor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddInstructor(Instructor newInstructor)
+        {
+            InstructorList.Add(newInstructor);
+            return View("Index", InstructorList);
+        }
+
+        public IActionResult EditInstructor()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult EditInstructor(int id)
+        {
+            Instructor? instructor = InstructorList.FirstOrDefault(ins => ins.Id == id);
+
+            if (instructor != null)
+                return View(instructor);
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult EditInstructor(Instructor insInstructor)
+        {
+            var ins = InstructorList.FirstOrDefault(ins => ins.Id == insInstructor.Id);
+
+            if (ins != null)
+            {
+                ins.Id = insInstructor.Id;
+                ins.FName = insInstructor.FName;
+                ins.LName = insInstructor.LName;
+                ins.IsTenured = insInstructor.IsTenured;
+                ins.Rank = insInstructor.Rank;
+                return View("Index", InstructorList);
+            }
+            return NotFound();
+        }
     }
 }
