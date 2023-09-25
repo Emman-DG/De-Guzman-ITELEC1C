@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DeGuzman_LabAct.Models;
-
+using DeGuzman_LabAct.Services;
 
 namespace DeGuzman_LabAct.Controllers
 {
     public class InstructorController : Controller
     {
-        List<Instructor> InstructorList = new List<Instructor>
+        /*List<Instructor> InstructorList = new List<Instructor>
             {
                 new Instructor()
                 {
@@ -44,17 +44,22 @@ namespace DeGuzman_LabAct.Controllers
                     HiringDate = DateTime.Parse("2019-01-25"), 
                     IsTenured = true
                 }
-            };
+            };*/
+        private readonly IMyFakeDataService _fakeData;
+        public InstructorController(IMyFakeDataService fakeData)
+        {
+            _fakeData = fakeData;
+        }
         public IActionResult Index()
         {
 
-            return View(InstructorList);
+            return View(_fakeData.InstructorList);
         }
 
         public IActionResult ShowDetail(int id)
         {
             //Search for the student whose id matches the given id
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)//was an student found?
                 return View(instructor);
@@ -71,8 +76,8 @@ namespace DeGuzman_LabAct.Controllers
         [HttpPost]
         public IActionResult AddInstructor(Instructor newInstructor)
         {
-            InstructorList.Add(newInstructor);
-            return View("Index", InstructorList);
+            _fakeData.InstructorList.Add(newInstructor);
+            return RedirectToAction("Index");
         }
 
         public IActionResult EditInstructor()
@@ -83,7 +88,7 @@ namespace DeGuzman_LabAct.Controllers
         [HttpGet]
         public IActionResult EditInstructor(int id)
         {
-            Instructor? instructor = InstructorList.FirstOrDefault(ins => ins.Id == id);
+            Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(ins => ins.Id == id);
 
             if (instructor != null)
                 return View(instructor);
@@ -94,7 +99,7 @@ namespace DeGuzman_LabAct.Controllers
         [HttpPost]
         public IActionResult EditInstructor(Instructor insInstructor)
         {
-            var ins = InstructorList.FirstOrDefault(ins => ins.Id == insInstructor.Id);
+            var ins = _fakeData.InstructorList.FirstOrDefault(ins => ins.Id == insInstructor.Id);
 
             if (ins != null)
             {
@@ -103,7 +108,26 @@ namespace DeGuzman_LabAct.Controllers
                 ins.LName = insInstructor.LName;
                 ins.IsTenured = insInstructor.IsTenured;
                 ins.Rank = insInstructor.Rank;
-                return View("Index", InstructorList);
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
+        public IActionResult DeleteInstructor(int id)
+        {
+            Instructor? instructor = _fakeData.InstructorList.FirstOrDefault(instructor => instructor.Id == id);
+            return View(instructor);
+        }
+        [HttpPost]
+        public IActionResult DeleteInstructor(Instructor insInstructor)
+        {
+            var ins = _fakeData.InstructorList.FirstOrDefault(ins => ins.Id == insInstructor.Id);
+
+            if (ins != null)
+            {
+                _fakeData.InstructorList.Remove(ins);
+                return RedirectToAction("Index");
             }
             return NotFound();
         }

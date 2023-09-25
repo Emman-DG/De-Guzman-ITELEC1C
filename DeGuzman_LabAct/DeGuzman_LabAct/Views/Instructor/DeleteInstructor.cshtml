@@ -5,35 +5,35 @@
     ViewData["Title"] = "Edit Instructor";
 }
 @model Instructor
-<h3>Edit Instructor</h3>
+<h3>Delete Instructor</h3>
 
-<form asp-action="EditInstructor">
+<form asp-action="DeleteInstructor">
     <div class="mb-3">
         <label asp-for="Id" class="form-label">ID</label>
-        <input asp-for="Id" class="form-control" />
+        <input asp-for="Id" class="form-control" disabled/>
     </div>
     <div class="row mb-3">
         <div class="col">
             <label asp-for="FName" class="form-label">First Name</label>
-            <input asp-for="FName" type="text" class="form-control" />
+            <input asp-for="FName" type="text" class="form-control"  disabled/>
         </div>
         <div class="col">
             <label asp-for="LName" class="form-label">Last Name</label>
-            <input asp-for="LName" type="text" class="form-control" />
+            <input asp-for="LName" type="text" class="form-control" disabled/>
         </div>
     </div>
     <div class="mb-3">
         <label asp-for="IsTenured" class="form-label">Tenured</label>
-        <input asp-for="IsTenured" />
+        <input asp-for="IsTenured" disabled/>
     </div>
     <div class="mb-3">
         <label asp-for="Rank" class="form-label">Rank</label>
-        <select asp-for="Rank" asp-items="Html.GetEnumSelectList(typeof(Rank))" class="form-control"></select>
+        <select asp-for="Rank" asp-items="Html.GetEnumSelectList(typeof(Rank))" class="form-control" disabled></select>
     </div>
     <div class="mb-3">
         <label asp-for="HiringDate" class="form-label">Hiring Date</label>
-        <input asp-for="HiringDate" class="form-control" />
+        <input asp-for="HiringDate" class="form-control" disabled/>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-danger">Delete</button>
     <button type="button" onclick="history.back()" class="btn btn-default">Cancel</button>
 </form>

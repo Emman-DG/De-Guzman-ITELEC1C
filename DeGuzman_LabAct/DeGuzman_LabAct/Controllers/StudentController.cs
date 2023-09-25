@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DeGuzman_LabAct.Models;
-
+using DeGuzman_LabAct.Services;
 
 namespace DeGuzman_LabAct.Controllers
 {
     public class StudentController : Controller
     {
-        List<Student> StudentList = new List<Student>
+        /*List<Student> StudentList = new List<Student>
             {
                 new Student()
                 {
@@ -20,17 +20,24 @@ namespace DeGuzman_LabAct.Controllers
                 {
                     Id= 3,FirstName = "Aerdriel",LastName = "Montano", Course = Course.BSCS, AdmissionDate = DateTime.Parse("2020-01-25"), GPA = 1.5, Email = "aerdriel@gmail.com"
                 }
-            };
+            };*/
+
+        private readonly IMyFakeDataService _fakeData;
+        public StudentController(IMyFakeDataService fakeData)
+        {
+            _fakeData = fakeData;
+        }
+
         public IActionResult Index()
         {
             
-            return View(StudentList);
+            return View(_fakeData.StudentList);
         }
 
         public IActionResult ShowDetail(int id)
         {
             //Search for the student whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _fakeData.StudentList.FirstOrDefault(st => st.Id == id);
             
             if (student != null)//was an student found?
                 return View(student);
@@ -47,8 +54,8 @@ namespace DeGuzman_LabAct.Controllers
         [HttpPost]
         public IActionResult AddStudent(Student newStudent)
         { 
-            StudentList.Add(newStudent);
-            return View("Index", StudentList);
+            _fakeData.StudentList.Add(newStudent);
+            return RedirectToAction("Index");
         }
 
         public IActionResult EditStudent()
@@ -59,7 +66,7 @@ namespace DeGuzman_LabAct.Controllers
         [HttpGet]
         public IActionResult EditStudent(int id) 
         {
-            Student? Student = StudentList.FirstOrDefault(st => st.Id == id);
+            Student? Student = _fakeData.StudentList.FirstOrDefault(st => st.Id == id);
 
             if (Student != null)
                 return View(Student);
@@ -70,7 +77,7 @@ namespace DeGuzman_LabAct.Controllers
         [HttpPost]
         public IActionResult EditStudent(Student studentStudent)
         { 
-            var st = StudentList.FirstOrDefault(st => st.Id == studentStudent.Id);
+            var st = _fakeData.StudentList.FirstOrDefault(st => st.Id == studentStudent.Id);
 
             if (st != null)
             { 
@@ -81,7 +88,27 @@ namespace DeGuzman_LabAct.Controllers
                 st.Course = studentStudent.Course;
                 st.AdmissionDate = studentStudent.AdmissionDate;
                 st.Email = studentStudent.Email;
-                return View("Index", StudentList);
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
+        public IActionResult DeleteStudent(int id)
+        {
+            Student? st = _fakeData.StudentList.FirstOrDefault(st => st.Id == id);
+            return View(st);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteStudent(Student insStudent)
+        {
+            var ins = _fakeData.StudentList.FirstOrDefault(ins => ins.Id == insStudent.Id);
+
+            if (ins != null)
+            {
+                _fakeData.StudentList.Remove(ins);
+                return RedirectToAction("Index");
             }
             return NotFound();
         }
