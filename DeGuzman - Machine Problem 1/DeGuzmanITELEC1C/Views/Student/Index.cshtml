@@ -1,0 +1,121 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var FName = "Emman";
+    var LName = "De Guzman";
+    var Email = "mikhailemman.deguzman.cics@ust.edu.ph";
+    string[] email = Email.Split('@');
+    DateTime bDate = Convert.ToDateTime("03/09/2003");
+    DateTime tDate = DateTime.Today;
+    int age = tDate.Year - bDate.Year;
+
+    if (bDate > tDate.AddYears(-age))
+    {
+        age--;
+    }
+    var PrelimGrade = 92;
+    var FinalGrade = 90;
+    var SemGrade = (PrelimGrade + FinalGrade) / 2;
+
+    var Transmuted = "";
+    if (96 <= SemGrade && SemGrade <= 100)
+    {
+        Transmuted = "1.00";
+    }
+    else if (94 <= SemGrade && SemGrade <= 95)
+    {
+        Transmuted = "1.25";
+    }
+    else if (92 <= SemGrade && SemGrade <= 93)
+    {
+        Transmuted = "1.50";
+    }
+    else if (89 <= SemGrade && SemGrade <= 91)
+    {
+        Transmuted = "1.75";
+    }
+    else if (87 <= SemGrade && SemGrade <= 88)
+    {
+        Transmuted = "2.00";
+    }
+    else if (84 <= SemGrade && SemGrade <= 86)
+    {
+        Transmuted = "2.25";
+    }
+    else if (82 <= SemGrade && SemGrade <= 83)
+    {
+        Transmuted = "2.50";
+    }
+    else if (79 <= SemGrade && SemGrade <= 81)
+    {
+        Transmuted = "2.75";
+    }
+    else if (75 <= SemGrade && SemGrade <= 78)
+    {
+        Transmuted = "3.0";
+    }
+    else if (SemGrade < 75)
+    {
+        Transmuted = "5.0";
+    }
+
+    int isTenured = 1;
+    int SalaryPerHour = 80;
+    int SalaryPerDay = 0;
+    int SalaryPerMonth = 0;
+    var Status = "";
+
+    if (isTenured == 1)
+    {
+        Status = "Permanent";
+        SalaryPerDay = SalaryPerHour * 8;
+        SalaryPerMonth = (SalaryPerDay * 30) + 500;
+    }
+    else
+    {
+        Status = "Probationary";
+        SalaryPerDay = SalaryPerHour * 8;
+        SalaryPerMonth = SalaryPerDay * 30;
+    }
+}
+
+<h1>Machine Problem 1 - De Guzman 3ITE</h1>
+
+<p>I'm @FName @LName and I'm @age years old</p>
+<br>
+
+<p>Email: @Email</p>
+<p>Domain: @email[1]</p>
+<p>Username: @email[0]</p>
+<br>
+
+<p>Name: @FName @LName</p>
+<p>Email: @Email</p>
+<p>Status: @Status</p>
+<p>Daily Salary: $@SalaryPerDay</p>
+<p>Monthly Salary: $@SalaryPerMonth</p>
+<br>
+
+<table class="table table-dark">
+    <tr>
+        <td>Name</td>
+        <td>@FName @LName</td>
+    </tr>
+    <tr>
+        <td>Prelim</td>
+        <td>@PrelimGrade</td>
+    </tr>
+    <tr>
+        <td>Final</td>
+        <td>@FinalGrade</td>
+    </tr>
+    <tr>
+        <td>Semestral Grade</td>
+        <td>@SemGrade</td>
+    </tr>
+    <tr>
+        <td>Transmuted Grade</td>
+        <td>@Transmuted</td>
+    </tr>
+</table>
