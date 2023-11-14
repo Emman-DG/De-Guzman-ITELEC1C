@@ -24,7 +24,11 @@ namespace DeGuzman_LabAct.Data
                 LName = "Beltran",
                 Rank = Rank.Instructor,
                 HiringDate = DateTime.Parse("2022-08-26"),
-                IsTenured = true
+                IsTenured = true,
+                PhoneNumber = "111-222-3333",
+                EmailAddress = "JasonBeltran.cics@ust.edu.ph",
+                Url = "google.com",
+                UnusedPassword = "12345"
             },
 
             new Instructor()
@@ -34,7 +38,11 @@ namespace DeGuzman_LabAct.Data
                 LName = "Beltran",
                 Rank = Rank.Instructor,
                 HiringDate = DateTime.Parse("2023-08-26"),
-                IsTenured = true
+                IsTenured = true,
+                PhoneNumber = "111-222-4444",
+                EmailAddress = "ImranBeltran.cics@ust.edu.ph",
+                Url = "facebook.com",
+                UnusedPassword = "1234567"
             });
         }
 
