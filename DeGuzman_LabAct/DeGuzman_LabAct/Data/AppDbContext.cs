@@ -1,9 +1,12 @@
 ﻿using DeGuzman_LabAct.Models;
+using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace DeGuzman_LabAct.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
 
     {
         public DbSet<Student> Roster { get; set; }
